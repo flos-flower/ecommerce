@@ -1,0 +1,45 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+    <div class="container">
+      <a class="navbar-brand waves-effect" href="/">
+        <strong class="blue-text">E-commerce</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <ul class="navbar-nav nav-flex-icons">
+          {% if request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="{% url 'core:add' %}">
+                <span class="clearfix d-none d-sm-inline-block"> Добавить товар </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="{{ user.profile.get_absolute_url }}">
+                <span class="clearfix d-none d-sm-inline-block text-uppercase"> {{ user.username }} </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
+                <span class="clearfix d-none d-sm-inline-block"> Выйти </span>
+              </a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="{% url 'account_login' %}">
+                <span class="clearfix d-none d-sm-inline-block"> Войти </span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
+                <span class="clearfix d-none d-sm-inline-block"> Регистрация </span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>

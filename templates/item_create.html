@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container">
+        <div class="form-group mt-5 pt-4">
+            <form method="POST" action="{% url 'core:add' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ item_form|crispy }}
+                {{ address_form|crispy }}
+                <button class="btn btn-primary" type="submit">Добавить</button>
+            </form>
+        </div>
+    </div>
+{%endblock%}

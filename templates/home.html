@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <main class='mt-5 pt-4'>
+    <div class="container">
+    <form id = "myForm" method="GET" action=".">
+      <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
+        <span class="navbar-brand">Категории:</span>
+        <!-- Collapsible content -->
+        <div class="container-fluid">
+          <!-- Links -->
+          <a class="navbar-brand">
+                <select id="category" class="form-control" name="category" onChange="this.form.submit();">
+                  <option value="Choose..">Choose..</option>
+                  <option value="E">Electronics</option>
+                  <option value="F">Fashion</option>
+                  <option value="HAB">Health and Beauty</option>
+                  <option value="HAG">House and Garden</option>
+                  <option value="S">Sports</option>
+                  <option value="A">Auto</option>
+                  <option value="O">Others</option>
+                </select>
+          </a>
+          <form class="d-flex" method="GET" action=".">
+            <div class="form-inline md-form my-0">
+              <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="q">
+            </div>
+          </form>
+        </div>
+      </nav>
+    </form>
+      <section class="text-center mb-4">
+        <div class="row wow fadeIn">
+          {% for item in object_list %}
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card">
+              <div class="view overlay">
+                <img height='250' src="/media/{{ item.img }}" class="card-img-top"
+                  alt="">
+                <a href="{{ item.get_absolute_url }}">
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+              <div class="card-body text-center">
+                <!--Category & Title-->
+                <a href="" class="grey-text">
+                  <h5>{{ item.get_category_display }}</h5>
+                </a>
+                <h5>
+                  <strong>
+                    <a href="{{ item.get_absolute_url }}" class="dark-grey-text">{{ item.title }}</a>
+                  </strong>
+                </h5>
+                <h4 class="font-weight-bold blue-text">
+                  <strong>{{ item.price }}</strong>
+                  <span>&#8381;</span>
+                </h4>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+      {% if is_paginated %}
+      <nav class="d-flex justify-content-center wow fadeIn">
+        <ul class="pagination pg-blue">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item  disabled">
+              <a class="page-link" disabled href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+          {% endif %}
+          {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+              <li class="page-item">
+                <a class="page-link href="#""> {{ i }} </a>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number}}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          {% endif %}    
+        </ul>
+      </nav>
+      {% endif %}
+    </div>
+  </main>
+  {% endblock content %}

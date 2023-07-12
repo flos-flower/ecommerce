@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <main class="mt-5 pt-4">
+        <div class="container dark-grey-text mt-5">
+            <div class="row wow fadeIn">
+                <div class="col-md-6 mb-4">
+                    <img src="/media/{{ object.img }}" class="img-fluid" alt="" width='500'>
+                </div>
+                <div class="col-md-6 mb-4">
+                <div class="p-4">
+                    <div class="mb-3">
+                        <a href="">
+                            <span class="badge purple mr-1">{{ object.get_category_display }}</span>
+                        </a>
+                    </div>
+                    <p class="lead">
+                        <span class="font-weight-bold">Название:</span>
+                        <span>{{ object.title }}</span>
+                    </p>
+                    <p class="lead">
+                        <span class="font-weight-bold">Продавец:</span>
+                        <span><a href='{{ item.user.profile.get_absolute_url }}'>{{item.user.username}}</a></span>
+                    </p>
+                    <p class="lead">
+                        <span class="font-weight-bold">Адрес:</span>
+                        <span>{{item.location.region}}, {{item.location.area}} район, {{item.location.city}}, ул.{{item.location.street}}</a></span>
+                    </p>
+                    <p class="lead">
+                        <span class="font-weight-bold">Цена:</span>
+                        <span> {{ object.price }}</span>
+                        <span>&#8381;</span>
+                    </p>
+                    <p class="lead">
+                        <span class="font-weight-bold">Дата добавления:</span>
+                        <span>{{item.post_date}}</a></span>
+                    </p>
+                    <p class="lead font-weight-bold">Описание</p>
+                    <p>{{ object.description }}</p>
+                    {%if request.user.is_authenticated and user.username == item.user.username%}
+                        <form method='POST'>
+                            <p class="lead">
+                                <a href={% url 'core:delete' item.id %} class='btn btn-danger'>Удалить</a>
+                            </p>
+                        </form>
+                    {%endif%}
+                </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row d-flex wow fadeIn">
+                <div class="text-left">
+                <h4 class="my-4 h4">Информация о продавце</h4>
+                <p>Имя пользователя: <a href='{{ item.user.profile.get_absolute_url }}'>{{item.user.username}}</a></p>
+                <p>Имя: {{item.user.first_name}}</p>
+                <p>Фамилия: {{item.user.last_name}}</p>
+                <p>Электронная почта: {{item.user.email}}</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+  
+{% endblock content %}
