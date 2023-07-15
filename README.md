@@ -1,1 +1,1 @@
-Ecommerce project
+# Ecommerce project made using Django
